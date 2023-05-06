@@ -32,6 +32,7 @@ class ContactMail extends Mailable
     {
         return $this
             ->subject('Contact Us: Linig-on!')
-            ->view('emails.contact');
+            ->view('emails.contact')
+            ->with('data', $this->data);
     }
 }

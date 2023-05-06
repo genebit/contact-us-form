@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Contact;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactMail;
 
 class ContactController extends Controller
 {
@@ -30,7 +31,7 @@ class ContactController extends Controller
             'message' => 'required'
         ]);
 
-        Contact::create($request->all());
+        Mail::to(env('MAIL_FROM_ADDRESS'))->send(new ContactMail($request->all()));
 
         return redirect()->back()
             ->with(['success' => 'Thank you for contact us. we will contact you shortly.']);
